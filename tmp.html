@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <style>
+        #userList {
+            margin: 0 auto;
+            max-width: 1200px;
+            background-color: gray;
+        }
+        .userCardWrapper {
+            display: flex;
+            align-items: center;
+            margin: 10px;
+        }
+        .userImageContainer {
+            position: relative;
+            overflow: hidden;
+            height: 70px;
+            width: 70px;
+        }
+        .userImage {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            height: inherit;
+            width: inherit;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+
+<ul id="userList">
+</ul>
+
+
+<script>
+    'use strict';
+    const users = [
+        {
+            id: 1,
+            name: "Вася",
+            surname: "Васильев",
+            imageSrc: null,
+        },
+        {
+            id: 2,
+            name: "Стас",
+            surname: "Михайлов",
+            imageSrc: "https://24smi.org/public/media/celebrity/2019/01/29/eblteapobq9j-stas-mikhailov.jpg",
+        },
+    ];
+    const userListElem = document.getElementById("userList");
+    users.forEach(
+        (user) => {
+            userListElem.append(getUserListElem(user));
+        }
+    );
+    function getUserImageElem({imageSrc}) {
+        const userImageContainerElem = document.createElement('div');
+        userImageContainerElem.classList.add("userImageContainer");
+        const userImageElem = document.createElement("img");
+        userImageElem.classList.add('userImage');
+        userImageElem.setAttribute("src", imageSrc ? imageSrc : "./assets/images/icons/user_icon.jpg");
+        userImageElem.setAttribute("alt", 'user picture');
+        userImageContainerElem.append(userImageElem);
+        return userImageContainerElem;
+    }
+    function getUserFullNameElem({name, surname}) {
+        const userFullNameElem = document.createElement('div');
+        userFullNameElem.innerText = `${name} ${surname}`;
+        return userFullNameElem;
+
+        function getUserFullNameElem({name, surname}) {
+            const userFullNameElem = document.createElement('div');
+            userFullNameElem.innerText = `${name} ${surname}`;
+            return userFullNameElem;
+    }
+    function getUserCardElem(user) {
+        const userCardWrapperElem = document.createElement('div');
+        userCardWrapperElem.classList.add("userCardWrapper");
+        userCardWrapperElem.append(getUserImageElem(user));
+        userCardWrapperElem.append(getUserFullNameElem(user));
+        return userCardWrapperElem;
+    }
+    function getUserListElem(user) {
+        const userListItemElem = document.createElement("li");
+        userListItemElem.append(getUserCardElem(user));
+        userListItemElem.setAttribute("id", user.id);
+        return userListItemElem;
+    }
+</script>
+</body>
+</html>
