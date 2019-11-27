@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="./assets/css/resets.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed&display=swap" rel="stylesheet">
-<!--    <script src="./assets/js/index.js"></script> -->
+    <!--    <script src="./assets/js/index.js"></script> -->
     <title>User cards_TASK DOM</title>
 </head>
 <body>
@@ -14,6 +14,35 @@
 </ul>
 <script>
     'use strict';
+    const SOCIAL_NETWORKS = Object.freeze({
+        FACEBOOK: "FACEBOOK",
+        TWITTER: "TWITTER",
+        SKYPE: "SKYPE",
+        GOOGLE_PLUS: "GOOGLE_PLUS",
+
+    });
+    const socialContacts = [
+        {
+            name: SOCIAL_NETWORKS.FACEBOOK,
+            icon: "./assets/images/icons/socialNetworks/facebook.png",
+
+        },
+        {
+            name: SOCIAL_NETWORKS.TWITTER,
+            icon: "./assets/images/icons/socialNetworks/twitter.png",
+
+        },
+        {
+            name: SOCIAL_NETWORKS.SKYPE,
+            icon: "./assets/images/icons/socialNetworks/skype.png",
+
+        },
+        {
+            name: SOCIAL_NETWORKS.GOOGLE_PLUS,
+            icon: "./assets/images/icons/socialNetworks/google-plus.png",
+
+        },
+    ];
     const users = [
         {
             id: 1,
@@ -21,10 +50,26 @@
             surname: "Alex",
             userDescription: "This is basics user profile with image, This is basics user profile with image",
             imageSrc: "http://www.upruda.ru/images/business-portraits/005.jpg",
-            contacts: [
-                "https://www.facebook.com/robertdowneyjr",
-                "https://twitter.com/RobertDowneyJr",
-            ]
+            contacts : [
+                {
+                    "https://www.facebook.com/robertdowneyjr",
+                    "https://twitter.com/RobertDowneyJr"
+                }
+                ,
+                {
+                    nameUserSocialNetwork: SOCIAL_NETWORKS.TWITTER.name,
+                    iconUserSocialNetwork: SOCIAL_NETWORKS.TWITTER.icon,
+                    hrefUserSocialNetwork: "https://www.facebook.com/people/Alex-Mathew/100004125311329",
+                },
+
+                {
+                    nameUserSocialNetwork: SOCIAL_NETWORKS.GOOGLE_PLUS.name,
+                    iconUserSocialNetwork: SOCIAL_NETWORKS.GOOGLE_PLUS.icon,
+                    hrefUserSocialNetwork: "https://www.facebook.com/people/Alex-Mathew/100004125311329",
+                }
+
+            ],
+
         },
         {
             id: 2,
@@ -63,7 +108,7 @@
             name: "Dmitri",
             surname: "Brown",
             userDescription: "This is basics user profile with image, This is basics user profile with image",
-
+            imageSrc: "https://i.pinimg.com/originals/ff/06/1c/ff061ce0e12e853fc42a7e381d58abc1.jpg",
 
         },
         {
@@ -79,10 +124,11 @@
             name: "Brendon",
             surname: "MCcmillan",
             userDescription: "This is basics user profile with image, This is basics user profile with image",
-            imageSrc: "https://static.lightfield.ua/storage/image/2e16c41455e57cb83daf5087ab5760eb465fad79.jpg",
+            imageSrc: "http://fotoptichka.com.ua/images/gallery/10/4b2a7527_600x900.jpg",
 
         },
     ];
+
     const userListElem = document.getElementById("userList");
     users.forEach(
         (user) => {
@@ -94,7 +140,7 @@
         userImageContainerElem.classList.add("userImageContainer");
         const userImageElem = document.createElement("img");
         userImageElem.classList.add('userImage');
-        userImageElem.setAttribute("src", imageSrc ? imageSrc : "./assets/img/user_icon.png");
+        userImageElem.setAttribute("src", imageSrc ? imageSrc : "./assets/images/icons/user_icon.jpg");
         userImageElem.setAttribute("alt", 'user picture');
         userImageContainerElem.append(userImageElem);
         return userImageContainerElem;
@@ -111,22 +157,26 @@
         UserDescriptionElem.innerText = `${userDescription}`;
         return UserDescriptionElem;
     }
-    function getUserDescriptionElem({userDescription}) {
-        const UserDescriptionElem = document.createElement('p');
-        UserDescriptionElem.classList.add("userDescription");
-        UserDescriptionElem.innerText = `${userDescription}`;
-        return UserDescriptionElem;
-    }
-    
-    function createUserContactsContainerElem() {
+    function getUserContactContainer({contactsElem}) {
+        const userContactContainerElem = document.createElement('div');
+        const userContactHrefElem = document.createElement("a");
+        const userContactImgElem = document.createElement("img");
+        // userContactImgElem.setAttribute("src", socialContacts.href);
+        // userContactImgElem.setAttribute("alt", socialContacts.name);
+        userContactHrefElem.href = users.contacts.href;
+        userContactImgElem.src =  users.contacts.icon;
+        userContactImgElem.alt =  users.contacts.name;
+        userContactContainerElem.append(userContactHrefElem);
+        userContactContainerElem.append(userContactImgElem);
 
+        return userContactContainerElem;
     }
-/*    function getRemoveButton() {
-        const UserRemoveButtonElem = document.createElement('div');
-        UserRemoveButtonElem.classList.add("");
-        UserRemoveButtonElem.innerText = "REMOVE";
-        return UserRemoveButtonElem;
-    }*/
+
+    users.contacts.forEach (
+        (contactsElem) => {
+            userContactContainer.append(getUserContactContainer(contactsElem));
+        }
+    )
 
     function getUserCardElem(user) {
         const userCardWrapperElem = document.createElement('div');
@@ -134,7 +184,7 @@
         userCardWrapperElem.append(getUserImageElem(user));
         userCardWrapperElem.append(getUserFullNameElem(user));
         userCardWrapperElem.append(getUserDescriptionElem(user));
-        //userCardWrapperElem.append(getRemoveButton(user));
+        userCardWrapperElem.append(getUserContactContainer(user));
         return userCardWrapperElem;
     }
     function getUserListElem(user) {
@@ -146,3 +196,13 @@
 </script>
 </body>
 </html>
+id: 1,
+name: "Robert",
+surname: "Downey Jr",
+userDescription: "This is basics user profile with image, This is basics user profile with image",
+imageSrc: "http://www.upruda.ru/images/business-portraits/005.jpg",
+contacts : [
+{
+"https://www.facebook.com/robertdowneyjr",
+"https://twitter.com/RobertDowneyJr",
+}

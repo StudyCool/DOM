@@ -55,7 +55,7 @@
     font-size: 1em;
     text-align: center;
     width: calc(100% - 20px *2);
-    margin: 20px auto 30px;
+    margin: 0px auto 30px;
     white-space: normal;
 
     overflow: hidden;
@@ -65,6 +65,14 @@
     -line-clamp: 2;
 
     line-height: 20px;
+
+}
+
+.removeButton{
+    background-color: dimgray;
+    color: white;
+    box-sizing: border-box;
+    padding: 10px;
 
 
 }
