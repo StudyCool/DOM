@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./assets/css/resets.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed&display=swap" rel="stylesheet">
+<!--    <script src="./assets/js/index.js"></script> -->
+    <title>User cards_TASK DOM</title>
+</head>
+<body>
+
+<ul id="userList">
+</ul>
+<script>
+    'use strict';
+    const SOCIAL_NETWORKS = Object.freeze({
+        FACEBOOK: "FACEBOOK",
+        TWITTER: "TWITTER",
+        SKYPE: "SKYPE",
+        GOOGLE_PLUS: "GOOGLE_PLUS",
+
+    });
+    const socialContacts = [
+        {
+            name: SOCIAL_NETWORKS.FACEBOOK,
+            icon: "./assets/images/icons/socialNetworks/facebook.png",
+
+        },
+        {
+            name: SOCIAL_NETWORKS.TWITTER,
+            icon: "./assets/images/icons/socialNetworks/twitter.png",
+
+        },
+        {
+            name: SOCIAL_NETWORKS.SKYPE,
+            icon: "./assets/images/icons/socialNetworks/skype.png",
+
+        },
+        {
+            name: SOCIAL_NETWORKS.GOOGLE_PLUS,
+            icon: "./assets/images/icons/socialNetworks/google-plus.png",
+
+        },
+    ];
+    const users = [
+        {
+            id: 1,
+            name: "Mathew",
+            surname: "Alex",
+            userDescription: "This is basics user profile with image, This is basics user profile with image",
+            imageSrc: "http://www.upruda.ru/images/business-portraits/005.jpg",
+            contacts : [
+                {
+                    nameUserSocialNetwork: SOCIAL_NETWORKS.FACEBOOK.name,
+                    iconUserSocialNetwork: SOCIAL_NETWORKS.FACEBOOK.icon,
+                    hrefUserSocialNetwork: "https://www.facebook.com/people/Alex-Mathew/100004125311329",
+                }
+                ,
+                {
+                    nameUserSocialNetwork: SOCIAL_NETWORKS.TWITTER.name,
+                    iconUserSocialNetwork: SOCIAL_NETWORKS.TWITTER.icon,
+                    hrefUserSocialNetwork: "https://www.facebook.com/people/Alex-Mathew/100004125311329",
+                },
+                {
+                    nameUserSocialNetwork: SOCIAL_NETWORKS.SKYPE.name,
+                    iconUserSocialNetwork: SOCIAL_NETWORKS.SKYPE.icon,
+                    hrefUserSocialNetwork: "https://www.facebook.com/people/Alex-Mathew/100004125311329",
+                },
+                {
+                    nameUserSocialNetwork: SOCIAL_NETWORKS.GOOGLE_PLUS.name,
+                    iconUserSocialNetwork: SOCIAL_NETWORKS.GOOGLE_PLUS.icon,
+                    hrefUserSocialNetwork: "https://www.facebook.com/people/Alex-Mathew/100004125311329",
+                }
+
+            ],
+
+        },
+        {
+            id: 2,
+            name: "Nike",
+            surname: "Tyson",
+            userDescription: "This is basics user profile with image, This is basics user profile with image",
+            imageSrc: "https://i.pinimg.com/originals/ff/06/1c/ff061ce0e12e853fc42a7e381d58abc1.jpg",
+
+        },
+        {
+            id: 3,
+            name: "Bernard",
+            surname: "Finn",
+            userDescription: "This is basics user profile with image, This is basics user profile with image",
+            imageSrc: "https://i.pinimg.com/originals/69/84/09/6984097201e414d9352b190f49656856.jpg",
+
+        },
+        {
+            id: 4,
+            name: "Jason",
+            surname: "Craig",
+            userDescription: "This is basics user profile with image, This is basics user profile with image",
+            imageSrc: "http://fotoptichka.com.ua/images/gallery/10/4b2a7527_600x900.jpg",
+
+        },
+        {
+            id: 5,
+            name: "Leonardo",
+            surname: "Filander",
+            userDescription: "This is basics user profile with image, This is basics user profile with image",
+            imageSrc: "http://www.upruda.ru/images/business-portraits/005.jpg",
+
+        },
+        {
+            id: 6,
+            name: "Dmitri",
+            surname: "Brown",
+            userDescription: "This is basics user profile with image, This is basics user profile with image",
+            imageSrc: "https://i.pinimg.com/originals/ff/06/1c/ff061ce0e12e853fc42a7e381d58abc1.jpg",
+
+        },
+        {
+            id: 7,
+            name: "Collin",
+            surname: "Moon",
+            userDescription: "This is basics user profile with image, This is basics user profile with image",
+            imageSrc: "https://i.pinimg.com/originals/69/84/09/6984097201e414d9352b190f49656856.jpg",
+
+        },
+        {
+            id: 8,
+            name: "Brendon",
+            surname: "MCcmillan",
+            userDescription: "This is basics user profile with image, This is basics user profile with image",
+            imageSrc: "http://fotoptichka.com.ua/images/gallery/10/4b2a7527_600x900.jpg",
+
+        },
+    ];
+
+    const userListElem = document.getElementById("userList");
+    users.forEach(
+        (user) => {
+            userListElem.append(getUserListElem(user));
+        }
+    );
+    function getUserImageElem({imageSrc}) {
+        const userImageContainerElem = document.createElement('div');
+        userImageContainerElem.classList.add("userImageContainer");
+        const userImageElem = document.createElement("img");
+        userImageElem.classList.add('userImage');
+        userImageElem.setAttribute("src", imageSrc ? imageSrc : "./assets/images/icons/user_icon.jpg");
+        userImageElem.setAttribute("alt", 'user picture');
+        userImageContainerElem.append(userImageElem);
+        return userImageContainerElem;
+    }
+    function getUserFullNameElem({name, surname}) {
+        const userFullNameElem = document.createElement('div');
+        userFullNameElem.classList.add("userFullName");
+        userFullNameElem.innerText = `${name} ${surname}`;
+        return userFullNameElem;
+    }
+     function getUserDescriptionElem({userDescription}) {
+         const UserDescriptionElem = document.createElement('p');
+         UserDescriptionElem.classList.add("userDescription");
+         UserDescriptionElem.innerText = `${userDescription}`;
+         return UserDescriptionElem;
+    }
+    function getUserContactContainer({contactsElem}) {
+        const userContactContainerElem = document.createElement('div');
+        const userContactHrefElem = document.createElement("a");
+        const userContactImgElem = document.createElement("img");
+         // userContactImgElem.setAttribute("src", socialContacts.href);
+         // userContactImgElem.setAttribute("alt", socialContacts.name);
+          userContactHrefElem.href = users.contacts.href;
+          userContactImgElem.src =  users.contacts.icon;
+          userContactImgElem.alt =  users.contacts.name;
+          userContactContainerElem.append(userContactHrefElem);
+          userContactContainerElem.append(userContactImgElem);
+
+          return userContactContainerElem;
+      }
+
+          users.contacts.forEach (
+              (contactsElem) => {
+              userContactContainer.append(getUserContactContainer(contactsElem));
+              }
+      )
+
+    function getUserCardElem(user) {
+        const userCardWrapperElem = document.createElement('div');
+        userCardWrapperElem.classList.add("userCardWrapper");
+        userCardWrapperElem.append(getUserImageElem(user));
+        userCardWrapperElem.append(getUserFullNameElem(user));
+        userCardWrapperElem.append(getUserDescriptionElem(user));
+        userCardWrapperElem.append(getUserContactContainer(user));
+        return userCardWrapperElem;
+    }
+    function getUserListElem(user) {
+        const userListItemElem = document.createElement("li");
+        userListItemElem.append(getUserCardElem(user));
+        userListItemElem.setAttribute("id", user.id);
+        return userListItemElem;
+    }
+</script>
+</body>
+</html>
